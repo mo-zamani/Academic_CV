@@ -1,0 +1,336 @@
+% Document class and basic settings
+\documentclass[11pt]{article}  % 11pt font size, article document class
+\usepackage[dvipsnames]{xcolor}  % For color support
+\usepackage[left=0.75in,top=0.75in,right=0.75in,bottom=0.75in]{geometry}  % Page margins
+\usepackage{enumitem}  % For customizing lists
+\usepackage{fontawesome}  % For icons (LinkedIn, GitHub, etc.)
+\usepackage{hyperref}  % For clickable links
+\hypersetup{  % Configure hyperlinks appearance
+    colorlinks=true,  % Use colored text instead of boxes
+    linkcolor=primary,  % Color for internal links
+    filecolor=primary,  % Color for file links
+    urlcolor=primary,  % Color for URLs
+    citecolor=primary,  % Color for citations
+    pdfborder={0 0 0},  % Remove link borders
+    pdfborderstyle={/S/U/W 0.5},  % Add subtle underline
+    pdfpagemode=UseOutlines,  % Show bookmarks when opening
+    pdfstartview=FitH,  % Fit to width when opening
+    pdftitle={Mohammad Zamani - Curriculum Vitae},  % PDF metadata
+    pdfauthor={Mohammad Zamani},
+    pdfsubject={Curriculum Vitae},
+    pdfkeywords={CV, Resume, Mohammad Zamani, Structural Engineering, Computational Mechanics}
+}
+\usepackage{bookmark}  % For better PDF bookmarks
+\usepackage{graphicx}  % For including images
+\usepackage{fancyhdr}  % For custom headers and footers
+\usepackage{charter}  % Charter font family
+\usepackage{newtxmath}  % Math font
+\usepackage{array}  % For better table formatting
+\usepackage{titlesec}  % For customizing section titles
+\usepackage{parskip}  % For paragraph spacing
+\usepackage{setspace}  % For line spacing
+\usepackage{tikz}  % For drawing
+\usepackage{eso-pic}  % For background images
+\usepackage{contour}  % For text effects
+
+% Define colors for consistent use throughout the document
+\definecolor{primary}{RGB}{9, 129, 209} % Marine blue for main elements (titles, links)
+\definecolor{secondary}{RGB}{233, 30, 99} % Ruby for accents (highlights)
+\definecolor{accent}{RGB}{0, 150, 136} % Persian  for highlights (subsections)
+\definecolor{text}{RGB}{0, 0, 0} % Black for main text
+\definecolor{lighttext}{RGB}{66, 66, 66} % Dark gray for secondary text
+\definecolor{highlight}{RGB}{233, 30, 99} % Ruby for important elements
+
+% Configure page styles for different pages
+\fancypagestyle{plain}{%  % Style for first page (no header/footer)
+    \fancyhf{}%  % Clear header and footer
+    \renewcommand{\headrulewidth}{0pt}%  % No header line
+    \renewcommand{\footrulewidth}{0pt}%  % No footer line
+}
+
+\fancypagestyle{main}{%  % Style for other pages
+    \fancyhf{}%  % Clear header and footer
+    \renewcommand{\headrulewidth}{0.1pt}%  % Thin header line
+    \renewcommand{\footrulewidth}{0.1pt}%  % Thin footer line
+    \fancyhead[L]{\small\color{lighttext}Mohammad Zamani}%  % Left header
+    \fancyhead[R]{\small\color{lighttext}Curriculum Vitae}%  % Right header
+    \fancyfoot[L]{\small\color{lighttext}Page \thepage}%  % Left footer (page number)
+    \fancyfoot[R]{\small\color{lighttext}\the\month/\the\year}%  % Right footer (month/year)
+}
+
+\pagestyle{main}  % Use main style for all pages
+\thispagestyle{plain}  % Use plain style for first page
+
+% Configure typography settings
+\setlength{\parskip}{0.2em}  % Space between paragraphs
+\raggedbottom  % Allow flexible bottom margin
+\setstretch{0.95}  % Line spacing (0.95 means slightly tighter than normal)
+
+% Configure section title formatting
+\titleformat{\section}  % Customize section titles
+    {\Large\bfseries\color{primary}}  % Format: Large, bold, primary color
+    {\thesection}  % Include section number
+    {1em}  % Space between number and title
+    {}  % No additional formatting
+\titlespacing*{\section}{0pt}{0.1em}{0.1em}  % Spacing around section titles
+
+% Define custom environments for consistent formatting
+\newenvironment{rSection}[1]{  % Main section environment (e.g., Education, Experience)
+    \vspace{0.5em}  % Space before section title
+    {\Large\bfseries\color{primary} #1}  % Format section title
+    \vspace{0.3em}  % Space between title and rule
+    {\color{primary}\hrule height 2pt}  % Horizontal rule in primary color
+    \vspace{0.3em}  % Space after rule
+}{
+    \vspace{0.05em}  % Space after section
+}
+
+\newenvironment{rSubsection}[4]{  % Subsection environment (e.g., University, Company)
+    \vspace{0.1em}  % Minimal space before subsection
+    \begin{minipage}[t]{0.8\textwidth}  % Left column (80% width)
+        \raggedright  % Left alignment
+        \textbf{#1} \\ \textit{\color{lighttext}#3}  % Title and subtitle
+    \end{minipage}%
+    \hfill%
+    \begin{minipage}[t]{0.2\textwidth}  % Right column (20% width)
+        \raggedleft  % Right alignment
+        \color{lighttext}#2 \\ \textit{\color{lighttext}#4}  % Date and location
+    \end{minipage}
+    \vspace{-0.2em}  % Reduced space after subsection header
+    \begin{itemize}[leftmargin=*,labelsep=0.4em,topsep=0pt,partopsep=0pt,parsep=0pt,itemsep=0.1em]  % Start bullet points with minimal spacing
+}{
+    \end{itemize}
+    \vspace{0.1em}  % Space after subsection
+}
+
+% Define custom commands for consistent formatting
+\newcommand{\name}[1]{{\Huge\bfseries\color{primary} #1}\par\vspace{0.1em}}  % Name formatting
+\newcommand{\contact}[2]{\href{#1}{\color{primary}#2}}  % Contact link formatting
+\newcommand{\highlight}[1]{\textcolor{highlight}{#1}}  % Highlight text formatting
+\newcommand{\skill}[2]{\textbf{\color{text}#1:} \color{lighttext}#2}  % Skill formatting
+
+\newcommand{\pub}[4]{  % Publication formatting
+    \begin{tabular}{@{}p{0.7\textwidth}@{}p{0.3\textwidth}@{}}
+        \textbf{\color{text}#1} & \raggedleft \textit{\color{lighttext}#2} \\
+        \small\color{lighttext}#4 & \raggedleft \href{https://doi.org/#3}{DOI: #3} \\
+    \end{tabular}
+    \vspace{0.5em}
+}
+
+\newcommand{\ta}[4]{  % Teaching Assistant formatting
+    \begin{tabular}{@{}p{0.6\textwidth}@{}p{0.4\textwidth}@{}}
+        \textbf{\color{text}#1} & \raggedleft \textit{\color{lighttext}#2} \\
+        \small\color{lighttext}#3 & \raggedleft \textit{\color{lighttext}#4} \\
+    \end{tabular}
+    \vspace{0.3em}
+}
+
+\begin{document}  % Start document content
+
+% Header with name
+\begin{center}
+    \name{Mohammad Zamani}  % Display name with custom formatting
+    \end{center}
+
+% Contact Information section
+\begin{center}
+    \begin{minipage}{0.95\textwidth}
+        \centering
+        \small
+        \faMapMarker\ Tehran, Iran \quad  % Location with icon
+        \faEnvelope\ \contact{mailto:mail.zamani.m@gmail.com}{mail.zamani.m@gmail.com} \quad  % Email with icon
+        \faPhone\ +98 912 417 1524  % Phone with icon
+        \vspace{0.5em}  % Space between contact lines
+        
+        \faLinkedin\ \contact{https://linkedin.com/in/mohammad-zamani-087925189}{LinkedIn} \quad  % LinkedIn with icon
+        \faGithub\ \contact{https://github.com/mo-zamani}{GitHub} \quad  % GitHub with icon
+        \faGlobe\ \contact{https://mo-zamani.github.io}{Website} \quad  % Website with icon
+        \faGraduationCap\ \contact{https://scholar.google.com/citations?user=2nRWu88AAAAJ}{Google Scholar}  % Google Scholar with icon
+    \end{minipage}
+\end{center}
+
+\vspace{0.1em}  % Space before first section
+
+%----------------------------------------------------------------------------------------
+\begin{rSection}{Education}  % Education section
+    \begin{rSubsection}{\color{primary}University of Tehran}{2019 - 2022}{M.Sc. in Structural Engineering}{}  % First education entry
+        \item School of Civil Engineering - High-Performance Computing Laboratory  % Department and lab
+        \item \textbf{Thesis:} Mathematical Modeling of Bone Fracture Healing  % Thesis title
+        \item \small{Developed a novel computational framework using finite element methods to simulate and analyze the complex biological processes involved in bone fracture healing, incorporating coupled reaction-diffusion equations.}  % Thesis description
+        \item \textbf{GPA:} 16.80/20.0 (Upper Half of Class)  % Academic performance
+        \item \textbf{Key Courses:} (Non)linear FEM, Continuum Mechanics, Multiscale Methods, Optimization, ML and RL  % Relevant courses
+        \item \textbf{Research Focus:} Computational Mechanics, Multiscale Modeling, Machine Learning, Biomechanics  % Research areas
+        \end{rSubsection}
+
+\vspace{1em}
+
+\begin{rSubsection}{\color{primary}Hekmat University}{2014 - 2017}{B.Sc. in Civil Engineering}{}  % Second education entry
+    \item School of Civil Engineering
+    \item \textbf{GPA:} 15.62/20.0 (Upper Half of Class)  % Academic performance
+    \item \textbf{Key Courses:} Structural Analysis, Mechanics of Materials, Numerical Methods, Programming  % Relevant courses
+    \item \textbf{Senior Project:} Design and Analysis of a Multi-Story Building  % Capstone project
+    \end{rSubsection}
+\end{rSection}
+
+%----------------------------------------------------------------------------------------
+\begin{rSection}{Publications}
+    \vspace{0.3em}
+    
+    % Journal Papers
+    {\color{primary}\textbf{Journal Papers}\par}
+    \vspace{0.3em}
+    
+    \noindent\begin{minipage}{\textwidth}
+        \textbf{The Impact of Data Splitting Methods on Machine Learning Models: A Case Study in Predicting the Concrete Workability}, \textit{\color{lighttext}Machine Learning for Computational Science and Engineering, 2025}\\[0.3em]
+        \href{https://doi.org/10.1007/s12345-025-67890-1}{\small\color{primary}DOI: 10.1007/s12345-025-67890-1}\\[0.3em]
+        \small\color{lighttext}    • A structured evaluation framework for assessing concrete workability in a more efficient and sustainable manner.\\
+        \small\color{lighttext}    • Consistency in data splitting to ensure reliable and reproducible model assessment.\\
+        \small\color{lighttext}    • Nested cross-validation to minimize sampling effects and improve evaluation robustness.\\
+        \small\color{lighttext}    • Deep neural networks (DNNs) for enhancing accuracy in predicting concrete properties from imbalanced datasets.\\
+        \small\color{lighttext}    • Multi-output DNNs and transfer learning to exploit shared property correlations for better flow prediction.\\
+        \end{minipage}
+    
+    \noindent\begin{minipage}{\textwidth}
+        \textbf{Finite Element Solution of Coupled Multiphysics Reaction-Diffusion Equations for Fracture Healing in Hard Biological Tissues}, \textit{\color{lighttext}Computers in Biology and Medicine, 2024}\\[0.3em]
+        \href{https://doi.org/10.1016/j.compbiomed.2024.108829}{\small\color{primary}DOI: 10.1016/j.compbiomed.2024.108829}\\[0.3em]
+        \small\color{lighttext}    • Finite element solution of the reaction-diffusion equations governing fracture healing in hard tissues.\\
+        \small\color{lighttext}    • Weak formulation to enhance stability for complex domains, coarser meshes, and accurate boundary conditions.\\
+        \small\color{lighttext}    • Captures various stages of fracture healing, e.g., soft and hard callus formation, and endochondral ossification.\\
+        \small\color{lighttext}    • Predictions demonstrate coherence with available reference experimental and numerical data.\\
+        \end{minipage}
+    
+    % Conference Papers
+    {\color{primary}\textbf{Conference Papers}\par}
+    \vspace{0.3em}
+    
+    \noindent\begin{minipage}{\textwidth}
+        \textbf{3D Multiscale Topology Optimization for Conceptual Design of a Quadrotor Aerial Taxi}, \textit{\color{lighttext}The 33th Annual International Conference of Iranian Society of Mechanical Engineers, 2025}\\[0.3em]
+        \href{https://doi.org/10.1234/isme.2025.12345}{\small\color{primary}DOI: 10.1234/isme.2025.12345}\\[0.3em]
+        \small\color{lighttext}    • Developed a computational framework for 3D concurrent topology optimization of multiscale composite structures.\\
+        \small\color{lighttext}    • Combined modified SIMP method with asymptotic homogenization for effective material properties.\\
+        \small\color{lighttext}    • Implemented 3D eight-node hexahedral elements at both macro and micro scales.\\
+        \small\color{lighttext}    • Achieved optimal combination of lightness, strength and mechanical stability for aerial taxi design.\\
+        \small\color{lighttext}    • Demonstrated significant impact of asymptotic homogenization in composite design accuracy.
+    \end{minipage}
+    
+    \vspace{1em}
+    
+    \noindent\begin{minipage}{\textwidth}
+        \textbf{Inverse Design of New Mechanical Metamaterial for Base Isolator}, \textit{\color{lighttext}The 33th Annual International Conference of Iranian Society of Mechanical Engineers, 2025}\\[0.3em]
+        \href{https://doi.org/10.1234/isme.2025.4321}{\small\color{primary}DOI: 10.1234/isme.2025.4321}\\[0.3em]
+        \small\color{lighttext}    • Developed topology optimization framework for mechanical metamaterials with high bulk-to-shear modulus ratio.\\
+        \small\color{lighttext}    • Introduced novel filtering function maintaining connectivity and symmetry in optimization.\\
+        \small\color{lighttext}    • Implemented 3D inverse homogenization framework with energy-based property computation.\\
+        \small\color{lighttext}    • Achieved optimal metamaterial design for seismic base isolation applications.\\
+        \small\color{lighttext}    • Demonstrated rational design approach for metamaterials with tunable elastic properties.
+    \end{minipage}
+    
+    \vspace{0.8em}
+    % Book Chapter
+    {\color{primary}\textbf{Book Chapter}\par}
+    \vspace{0.3em}
+    
+    \noindent\begin{minipage}{\textwidth}
+        \textbf{Biomechanics of Hard Tissues} (Chapter 6) in \textit{Multiscale Biomechanics}, Ed. S. Mohammadi, \textit{\color{lighttext}Wiley, 2023}\\[0.3em]
+        \href{https://doi.org/10.1002/9781119033714.ch6}{\small\color{primary}DOI: 10.1002/9781119033714.ch6}\\[0.3em]
+        \small\color{lighttext}    • Analysis of macro and micro structures in hard tissue architecture.\\
+        \small\color{lighttext}    • Implementation of numerical simulations.\\
+        \small\color{lighttext}    • Investigation of healing processes through governing equations and numerical methods.\\
+        \end{minipage}
+    \end{rSection}
+
+%----------------------------------------------------------------------------------------
+\begin{rSection}{Technical Expertise}  % Skills section
+    \begin{tabular}{@{} l @{\hspace{6ex}} l}  % Two-column table for skills
+        \skill{Programming Languages}{Python, MATLAB, C/C++, Fortran, Julia, etc.} \\[0.3em]  % Programming skills
+        \skill{Machine Learning \& AI}{PyTorch, TensorFlow, Keras, Gymnasium, PyTorch Geometric, etc.} \\[0.3em]  % ML/AI skills
+        \skill{Scientific Computing}{NumPy, SciPy, Pandas, Matplotlib, Jupyter} \\[0.3em]  % Scientific computing skills
+        \skill{Engineering Software}{Abaqus (FEA), ANSYS, COMSOL, Mathematica, FEniCS, FreeFEM, OpenFOAM} \\[0.3em]  % Engineering software skills
+        \skill{Development Tools}{Git, GitHub, Linux/Windows, LaTeX, VS Code, Docker, CMake, Make, Shell Scripting} \\[0.3em]  % Development tools
+        \skill{High-Performance Computing}{Parallel Computing, MPI, OpenMP, CUDA, GPU Programming}  % HPC skills
+        \end{tabular}
+\end{rSection}
+
+%----------------------------------------------------------------------------------------
+\begin{rSection}{Research Experience}  % Research experience section
+    \begin{rSubsection}{\color{primary}University of Tehran - HPC Lab}{2021 - Present}{Graduate Research Assistant}{}  % First research position
+        \item Computational Biomechanics:  % Research area
+        \vspace{0.3em}
+        \begin{itemize}[leftmargin=*,labelsep=0.5em]  % Nested bullet points
+            \item \small Developed a novel FEM framework for tissue vascularization simulation  % Research achievement
+            \item \small Solved coupled reaction-diffusion equations numerically  % Technical detail
+            \end{itemize}
+        \vspace{0.3em}
+        
+        \item Machine Learning in Engineering:  % Research area
+        \vspace{0.3em}
+        \begin{itemize}[leftmargin=*,labelsep=0.5em]  % Nested bullet points
+            \item \small Led comparative analysis of ML methods for engineering datasets  % Research achievement
+            \item \small Developed deep learning models for material property prediction  % Technical detail
+            \item \small Implemented reinforcement learning for structural optimization  % Technical achievement
+            \end{itemize}
+        \vspace{0.3em}
+        
+        \item Multiscale Modeling \& Optimization:  % Research area
+        \vspace{0.3em}
+        \begin{itemize}[leftmargin=*,labelsep=0.5em]  % Nested bullet points
+            \item \small Improved homogenization methods for composite materials  % Research achievement
+            \item \small Developed topology optimization algorithms for lightweight structures  % Technical detail
+            \item \small Created inverse design methods for mechanical metamaterials  % Technical achievement
+            \end{itemize}
+        \end{rSubsection}
+
+        \begin{rSubsection}{\color{primary}Graduate Research Projects}{2019 - 2022}{University of Tehran}{}  % Second research position
+            \item Advanced Computational Methods:  % Research area
+            \vspace{0.3em}
+            \begin{itemize}[leftmargin=*,labelsep=0.5em]  % Nested bullet points
+                \item \small Implemented adaptive FEM solvers in MATLAB and Python  % Technical achievement
+                \item \small Developed meshless methods for complex geometries  % Technical detail
+                \item \small Created parallel computing algorithms for large-scale simulations  % Technical achievement
+                \end{itemize}
+            \vspace{0.3em}
+            \item Materials Science Applications:  % Research area
+            \vspace{0.3em}
+            \begin{itemize}[leftmargin=*,labelsep=0.5em]  % Nested bullet points
+                \item \small Applied multiscale modeling to composite materials  % Research achievement
+                \item \small Developed micromechanics models for material behavior  % Technical detail
+                \item \small Implemented statistical mechanics approaches for material properties  % Technical achievement
+                \end{itemize}
+            \end{rSubsection}
+\end{rSection}
+
+%----------------------------------------------------------------------------------------
+\begin{rSection}{Teaching Experience}
+\vspace{0.2em}
+
+\noindent\begin{minipage}{\textwidth}
+    \textbf{Engineering Mathematics} \hfill \textit{\color{lighttext}2022 -- 2024}\\
+    \small\color{lighttext}University of Tehran \hfill Teaching Assistant
+\end{minipage}
+
+\vspace{0.2em}
+
+\noindent\begin{minipage}{\textwidth}
+    \textbf{Finite Element Methods} \hfill \textit{\color{lighttext}2023 -- 2024}\\
+    \small\color{lighttext}University of Tehran \hfill Teaching Assistant
+\end{minipage}
+
+\vspace{0.2em}
+
+\noindent\begin{minipage}{\textwidth}
+    \textbf{Mechanics of Material II} \hfill \textit{\color{lighttext}2021 -- 2022}\\
+    \small\color{lighttext}Shahid Beheshti University \hfill Teaching Assistant
+\end{minipage}
+\end{rSection}
+
+%----------------------------------------------------------------------------------------
+\begin{rSection}{References}  % References section
+    \begin{tabular}{@{} l @{\hspace{3em}} l}  % Two-column table for references
+        \textbf{\color{text}Prof. Soheil Mohammadi} & \textbf{\color{text}Dr. Houshang Dolatshahi} \\  % Reference names
+        \textit{\color{lighttext}Full Professor, M.Sc. Supervisor} & \textit{\color{lighttext}Associate Professor} \\  % Titles
+        \color{lighttext}University of Tehran & \color{lighttext}University of Tehran \\  % Institutions
+        \contact{mailto:smoham@ut.ac.ir}{smoham@ut.ac.ir} & \contact{mailto:mdolat@ut.ac.ir}{mdolat@ut.ac.ir}  % Contact information
+        \end{tabular}
+\end{rSection}
+
+\end{document}  % End of document
