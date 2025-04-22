@@ -1,0 +1,41 @@
+# LaTeX temporary files
+*.aux
+*.log
+*.toc
+*.lof
+*.lot
+*.out
+*.synctex.gz
+*.fls
+*.fdb_latexmk
+*.bbl
+*.blg
+*.dvi
+*.bcf
+*.run.xml
+
+# Editor backup files
+*~
+*.bak
+*.backup
+.*.sw[po]
+
+# VS Code
+.vscode/
+.vs/
+
+# macOS system files
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Windows system files
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# Build directory
+build/
+dist/
+_minted*/ 
